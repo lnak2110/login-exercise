@@ -28,12 +28,9 @@ public class LoginController extends HttpServlet {
         String email = req.getParameter("email");
         String password = req.getParameter("password");
 
-        User user = loginService.checkLogin(email, password);
+        User user = loginService.checkLogin(req, email, password);
 
         if (user != null) {
-            HttpSession httpSession = req.getSession();
-            httpSession.setAttribute("userLoggedIn", user);
-
             String context = req.getContextPath();
             resp.sendRedirect(context + "/home");
         } else {
